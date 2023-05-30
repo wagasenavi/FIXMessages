@@ -1,1 +1,1 @@
-# fix message
+# Sample project with Server and Client for Quckfix/j

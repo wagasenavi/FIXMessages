@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fix.message</groupId>
+	<artifactId>parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>parent</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<url>http://localhost:8081/repository/citizen-view-snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>nexus-releases</id>
+			<url>http://localhost:8081/repository/citizen-view-releases/</url>
+		</repository>
+	</distributionManagement>
+
+	<!-- download dependencies from Nexus-->
+	<repositories>
+		<repository>
+			<id>citizen-view-group</id>
+			<url>http://localhost:8081/repository/citizen-view-group/</url>
+		</repository>
+	</repositories>
+
+	<!-- publish project to Nexus-->
+	<dependencyManagement>
+		<dependencies>
+			<!-- OWN modules -->
+			<dependency>
+				<groupId>fix.message</groupId>
+				<artifactId>server</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>fix.message</groupId>
+				<artifactId>client</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<!-- Quickfix -->
+			<dependency>
+			    <groupId>org.quickfixj</groupId>
+			    <artifactId>quickfixj-core</artifactId>
+			    <version>2.3.1</version>
+			</dependency>
+		    <dependency>
+			    <groupId>org.quickfixj</groupId>
+			    <artifactId>quickfixj-messages-fix42</artifactId>
+			    <version>2.3.1</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.quickfixj</groupId>
+			    <artifactId>quickfixj-messages-fix40</artifactId>
+			    <version>2.2.0</version>
+			</dependency>
+
+			<!-- junit -->
+		    <dependency>
+		      <groupId>junit</groupId>
+		      <artifactId>junit</artifactId>
+		      <version>3.8.1</version>
+		      <scope>test</scope>
+		    </dependency>
+    
+			<!-- slf4j -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.6.1</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<finalName>parent</finalName>
+		<pluginManagement>
+			<plugins>
+				<!-- Maven compiler plugin -->
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.0</version>
+					<configuration>
+						<release>11</release>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
+
+
+	<profiles>
+
+		<profile>
+			<id>all</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>server</module>
+				<module>client</module>
+			</modules>
+		</profile>
+	</profiles>
+
+	<modules>
+		<module>server</module>
+		<module>client</module>
+	</modules>
+
+</project>
